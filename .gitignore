@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.env
+
+# VSCode/JetBrains
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Configuración PyCharm
+.idea/
