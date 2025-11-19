@@ -17,7 +17,13 @@ class AppController:
         self.modelo = GestorUsuarios()
         self.vista = MainView(master)
 
+        self.vista.menu_archivo.add_command(label="Añadir usuario", command=self.abrir_ventana_añadir)
+        self.vista.menu_archivo.add_separator()
+        self.vista.menu_archivo.add_command(label="Guardar", command=self.guardar_usuarios)
+        self.vista.menu_archivo.add_command(label="Cargar", command=self.cargar_usuarios)
+
         self.refrescar_lista_usuarios()
+        self.cargar_usuarios(mostrar_mensajes=False)
 
     def refrescar_lista_usuarios(self):
         usuarios = self.modelo.listar()
@@ -57,3 +63,20 @@ class AppController:
         self.modelo.añadir_usuario(nuevo_usuario)
         self.refrescar_lista_usuarios()
         add_view.window.destroy()
+
+    def guardar_usuarios(self):
+        ruta = self.BASE_DIR / "usuarios.csv"
+        self.modelo.guardar_csv(ruta)
+        messagebox.showinfo("Información", "Usuarios guardados correctamente.")
+
+    def cargar_usuarios(self, mostrar_mensajes=True):
+        ruta = self.BASE_DIR / "usuarios.csv"
+        if not ruta.exists():
+            if mostrar_mensajes:
+                messagebox.showerror("Error", "No se ha encontrado el archivo usuarios.csv")
+            return
+
+        self.modelo.cargar_csv(ruta)
+        self.refrescar_lista_usuarios()
+        if mostrar_mensajes:
+            messagebox.showinfo("Información", "Usuarios cargados correctamente.")
