@@ -33,6 +33,8 @@ class MainView(ctk.CTkFrame):
         self.label_avatar = ctk.CTkLabel(self.detalle_frame, text="Avatar:")
         self.label_avatar_value = ctk.CTkLabel(self.detalle_frame, text="-")
 
+        self.avatar_label = ctk.CTkLabel(self.detalle_frame, text="")
+
         self.label_nombre.grid(row=0, column=0, sticky="w", padx=5, pady=5)
         self.label_nombre_value.grid(row=0, column=1, sticky="w", padx=5, pady=5)
 
@@ -45,7 +47,9 @@ class MainView(ctk.CTkFrame):
         self.label_avatar.grid(row=3, column=0, sticky="w", padx=5, pady=5)
         self.label_avatar_value.grid(row=3, column=1, sticky="w", padx=5, pady=5)
 
-        for i in range(4):
+        self.avatar_label.grid(row=4, column=0, columnspan=2, pady=10)
+
+        for i in range(5):
             self.detalle_frame.grid_rowconfigure(i, weight=0)
         self.detalle_frame.grid_columnconfigure(0, weight=0)
         self.detalle_frame.grid_columnconfigure(1, weight=1)
@@ -62,11 +66,18 @@ class MainView(ctk.CTkFrame):
             )
             btn.pack(fill="x", padx=5, pady=2)
 
-    def mostrar_detalles_usuario(self, usuario):
+    def mostrar_detalles_usuario(self, usuario, avatar_image=None):
         self.label_nombre_value.configure(text=usuario.nombre)
         self.label_edad_value.configure(text=str(usuario.edad))
         self.label_genero_value.configure(text=usuario.genero)
         self.label_avatar_value.configure(text=usuario.avatar)
+
+        if avatar_image is not None:
+            self.avatar_label.configure(image=avatar_image, text="")
+            self.avatar_label.image = avatar_image
+        else:
+            self.avatar_label.configure(image="", text="")
+            self.avatar_label.image = None
 
 class AddUserView:
     def __init__(self, master):
