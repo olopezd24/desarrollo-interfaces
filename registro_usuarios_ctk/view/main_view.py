@@ -1,9 +1,16 @@
 import customtkinter as ctk
+import tkinter
 
 
 class MainView(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
+
+        self.menubar = tkinter.Menu(master)
+        master.config(menu=self.menubar)
+
+        self.menu_archivo = tkinter.Menu(self.menubar, tearoff=0)
+        self.menubar.add_cascade(label="Archivo", menu=self.menu_archivo)
 
         master.title("Registro de usuarios")
         master.geometry("800x500")
