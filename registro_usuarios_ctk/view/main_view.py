@@ -67,3 +67,33 @@ class MainView(ctk.CTkFrame):
         self.label_edad_value.configure(text=str(usuario.edad))
         self.label_genero_value.configure(text=usuario.genero)
         self.label_avatar_value.configure(text=usuario.avatar)
+
+class AddUserView:
+    def __init__(self, master):
+        self.window = ctk.CTkToplevel(master)
+        self.window.title("Añadir Nuevo Usuario")
+        self.window.geometry("300x350")
+        self.window.grab_set()
+
+        self.nombre_entry = ctk.CTkEntry(self.window, placeholder_text="Nombre")
+        self.nombre_entry.pack(padx=10, pady=10)
+
+        self.edad_entry = ctk.CTkEntry(self.window, placeholder_text="Edad")
+        self.edad_entry.pack(padx=10, pady=10)
+
+        self.genero_entry = ctk.CTkEntry(self.window, placeholder_text="Género")
+        self.genero_entry.pack(padx=10, pady=10)
+
+        self.avatar_entry = ctk.CTkEntry(self.window, placeholder_text="Nombre de avatar")
+        self.avatar_entry.pack(padx=10, pady=10)
+
+        self.guardar_button = ctk.CTkButton(self.window, text="Guardar")
+        self.guardar_button.pack(padx=10, pady=20)
+
+    def get_data(self):
+        return {
+            "nombre": self.nombre_entry.get(),
+            "edad": self.edad_entry.get(),
+            "genero": self.genero_entry.get(),
+            "avatar": self.avatar_entry.get()
+        }
